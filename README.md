@@ -43,3 +43,18 @@ This library is experimental. Your comments are very welcome.
       (incf sum (aref array i)))
     sum))
 ```
+
+
+###Defining of your own reductions###
+
+```lisp
+(use-package :climp)
+
+(define-reduction print (var &optional start-value )
+ `(,var ,start-value #'print))
+ 
+(parallel (:number-of-threads 4
+           :vars ((:print test "Master thread")))
+  (slave
+    (setf test "Slave thread")))
+```
