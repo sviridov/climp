@@ -30,13 +30,28 @@ This library is experimental. Your comments are very welcome.
     (some-action i)))
 ```
 
+###Private variables###
+
+```lisp
+(use-package :climp)
+
+(defun parallel-count-if-for-list (pred list nthreads)
+  (let ((count 0))
+    (parallel-dolist (obj list :number-of-threads nthreads
+                               :vars ((private-count 0 (lambda (private-count)
+                                                         (incf count private-count)))))
+      (when (funcall pred obj)
+        (incf private-count)))
+    count))
+```
+
 ###Sum of array elements using a variable reduction###
 
 ```lisp
 (use-package :climp)
 
 (defun array-elements-sum (array nthreads)
-  (let ((sum (the fixnum 0)))
+  (let ((sum 0))
     (parallel-dotimes (i (array-total-size array) :number-of-threads nthreads
                                                   :vars ((:incf sum)))
       (declare (type fixnum i sum))
