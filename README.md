@@ -29,3 +29,17 @@ This library is experimental. Your comments are very welcome.
   (parallel-dotimes (i niterations)
     (some-action i)))
 ```
+
+###Sum of array elements using a variable reduction###
+
+```lisp
+(use-package :climp)
+
+(defun array-elements-sum (array nthreads)
+  (let ((sum (the fixnum 0)))
+    (parallel-dotimes (i (array-total-size array) :number-of-threads nthreads
+                                                  :vars ((:incf sum)))
+      (declare (type fixnum i sum))
+      (incf sum (aref array i)))
+    sum))
+```
