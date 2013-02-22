@@ -4,6 +4,10 @@ This library is experimental. Your comments are very welcome.
 
 ##Examples##
 
+**Note:** By default SLIME does not change ```*standard-output*``` and friends outside of the REPL. If you have any other threads which call format, write-string, etc. that output will be seen only in the ```*inferior-lisp*``` buffer or on the terminal, more often than not this is inconvenient. So, if you want to send output to SLIME's repl buffer, as opposed to ```*inferior-lisp*```, set ```swank:*globally-redirect-io*``` to ```T```.
+
+Note that the value of this variable is only checked when swank accepts the connection so you should set it via ```~/.swank.lisp```. Otherwise you will need to call ```swank::globally-redirect-io-to-connection``` yourself, but you shouldn't do that unless you know what you're doing. 
+
 ###Hello World###
 
 ```lisp
