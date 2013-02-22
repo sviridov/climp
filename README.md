@@ -77,3 +77,16 @@ Note that the value of this variable is only checked when swank accepts the conn
   (slave
     (setf test "Slave thread")))
 ```
+
+###Defining of your own PARALLEL commands###
+
+```lisp
+(use-package :climp)
+(use-package :bt)
+(use-package :alexandria)
+
+(define-parallel-command critical (&rest body)
+  (with-gensyms (lock)
+   `(:vars ((,lock (make-lock)))
+     :body (with-lock-held (,lock) ,@body))))
+```
