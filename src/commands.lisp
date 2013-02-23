@@ -198,17 +198,15 @@ COMMAND is a function that return list in format: (:vars VARS :body BODY).
 ;;;==============================================================
 
 (defclass circular-barrier ()
-  ((lock-1    :reader    lock-1    :initform (make-lock))
-   (lock-2    :reader    lock-2    :initform (make-lock))
-   (cv-1      :reader    cv-1      :initform (make-condition-variable))
-   (cv-2      :reader    cv-2      :initform (make-condition-variable))
-   (odd-iterp :accessor  odd-iterp :initform t :type boolean)
-   (counter-1 :accessor  counter-1   
-	      :initarg  :counter-1 
+  ((lock-1    :initform (make-lock))
+   (lock-2    :initform (make-lock))
+   (cv-1      :initform (make-condition-variable))
+   (cv-2      :initform (make-condition-variable))
+   (odd-iterp :initform t :type boolean)
+   (counter-1 :initarg  :counter-1 
 	      :type      fixnum
 	      :initform (error "Not initialized counter"))
-   (counter-2 :accessor  counter-2   
-	      :initarg  :counter-2 
+   (counter-2 :initarg  :counter-2 
 	      :type      fixnum
 	      :initform (error "Not initialized counter"))))
 
